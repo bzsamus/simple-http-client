@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  php:
+    build: ./
+    working_dir: /usr/src/myapp
+    volumes:
+    - ./:/usr/src/myapp
+  phpunit:
+    build: ./
+    working_dir: /usr/src/myapp
+    command: bash -c "composer install && phpunit -vvv"
+    volumes:
+      - ./:/usr/src/myapp
