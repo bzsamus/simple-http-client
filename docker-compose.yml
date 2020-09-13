@@ -1,14 +1,23 @@
-version: '2'
-
+# docker-compose.yml
+version: '3'
 services:
+  composer:
+    image: composer:1.9.3
+    environment:
+    - COMPOSER_CACHE_DIR=/app/.cache/composer
+    volumes:
+    - .:/app
+    restart: never
   php:
-    build: ./
-    working_dir: /usr/src/myapp
+    image: php:7.4-cli
+    restart: never
     volumes:
-    - ./:/usr/src/myapp
+    - .:/app
+    working_dir: /app
   phpunit:
-    build: ./
-    working_dir: /usr/src/myapp
-    command: bash -c "composer install && phpunit -vvv"
+    image: php:7.4-cli
+    restart: never
     volumes:
-      - ./:/usr/src/myapp
+    - .:/app
+    working_dir: /app
+    entrypoint: vendor/bin/phpunit
