@@ -1,6 +1,6 @@
 # simple-http-client
 
-##Usage
+## Usage
 
 Using the client
 
