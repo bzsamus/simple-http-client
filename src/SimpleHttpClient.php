@@ -72,7 +72,7 @@ class SimpleHttpClient
             $this->header = $header;
         }
     }
-    
+
     /**
      * Setting default header
      */
@@ -144,7 +144,7 @@ class SimpleHttpClient
      * Request function
      *
      * @param $method
-     * @param array $data
+     * @param array $param
      *
      * @return array
      * @throws Exception
@@ -152,10 +152,12 @@ class SimpleHttpClient
     public function request($method, $param): ?array
     {
         $url  = $this->getUrl();
-        $data = http_build_query($param);
+
         if ($method === 'GET') {
-            $url .= '?' . $data;
+            $url .= '?' . http_build_query($param);
         }
+
+        $data = json_encode($param);
 
         $context = stream_context_create([
             'http' =>  [
