@@ -14,6 +14,10 @@ use App\SimpleHttpClient\SimpleHttpClient;
  */
 class SimpleHttpClientTest extends TestCase
 {
+    /**
+     * @group Unit
+     * @group Unit.Client
+     */
     public function testConstructor(): void
     {
         $url = 'http://example.com';
@@ -25,6 +29,11 @@ class SimpleHttpClientTest extends TestCase
         self::assertEquals($header, $client->getHeader());
     }
 
+    /**
+     * @group Unit
+     * @group Unit.Client
+     * @group Unit.Client.Header
+     */
     public function testGetSetHeader(): void
     {
         $header = [
@@ -43,6 +52,11 @@ class SimpleHttpClientTest extends TestCase
         );
     }
 
+    /**
+     * @group Unit
+     * @group Unit.Client
+     * @group Unit.Client.Header
+     */
     public function testFormatHeader(): void
     {
         $header = [
