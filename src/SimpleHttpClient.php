@@ -64,10 +64,15 @@ class SimpleHttpClient
      */
     public function setHeader(array $header): void
     {
-        $this->header = $header;
+        if (is_array($this->header)) {
+            $this->header = array_unique(
+                array_merge($this->header, $header)
+            );
+        } else {
+            $this->header = $header;
+        }
     }
-
-
+    
     /**
      * Setting default header
      */
@@ -131,7 +136,7 @@ class SimpleHttpClient
     public function options(): array
     {
         return $this->formatResponse(
-            $this->request('OPTIONS')
+            $this->request('OPTIONS', [])
         );
     }
 
@@ -139,17 +144,17 @@ class SimpleHttpClient
      * Request function
      *
      * @param $method
-     * @param string $data
+     * @param array $data
      *
      * @return array
      * @throws Exception
      */
-    public function request($method, $data = ''): ?array
+    public function request($method, $param): ?array
     {
-        $url = $this->getUrl();
+        $url  = $this->getUrl();
+        $data = http_build_query($param);
         if ($method === 'GET') {
-            $url .= '?' . http_build_query($data);
-            $data = '';
+            $url .= '?' . $data;
         }
 
         $context = stream_context_create([
