@@ -12,7 +12,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "App\\SimpleHttpClient\\": "tests"
+      "App\\Tests\\": "tests"
     }
   }
 }
